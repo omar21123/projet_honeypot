@@ -1,0 +1,134 @@
+/* --- 1. GÉNÉRAL ET ARRIÈRE-PLAN --- */
+:root {
+    --primary-color: #007bff; /* Bleu pour les actions */
+    --secondary-color: #6c757d; /* Gris pour les éléments secondaires */
+    --text-color: #e9ecef; /* Texte clair */
+    --background-dark: #212529; /* Arrière-plan sombre (similaire à Kali) */
+    --card-background: #343a40; /* Couleur des cartes/conteneurs */
+    --input-border: #495057; /* Bordure des champs */
+    --shadow-light: rgba(0, 0, 0, 0.3);
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: var(--background-dark);
+    color: var(--text-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+}
+
+/* --- 2. CONTENEUR PRINCIPAL ET FORMULAIRE --- */
+.container {
+    background-color: var(--card-background);
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px var(--shadow-light);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+}
+
+h1 {
+    color: var(--text-color);
+    margin-bottom: 30px;
+    font-size: 1.8rem;
+    font-weight: 300;
+    border-bottom: 2px solid var(--input-border);
+    padding-bottom: 10px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* --- 3. CHAMPS DE SAISIE --- */
+.input-field {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--input-border);
+    border-radius: 6px;
+    background-color: var(--background-dark);
+    color: var(--text-color);
+    box-sizing: border-box; /* Inclut le padding dans la largeur */
+    transition: border-color 0.3s;
+}
+
+.input-field::placeholder {
+    color: #a0a0a0;
+}
+
+.input-field:focus {
+    border-color: var(--primary-color);
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+
+/* --- 4. BOUTONS --- */
+.btn-login,
+.btn-logout {
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    text-transform: uppercase;
+    transition: background-color 0.3s ease;
+    text-decoration: none; /* Pour les liens <a> */
+    display: block;
+    width: 100%;
+    margin-top: 5px;
+}
+
+/* Bouton principal (Login/Register) */
+.btn-login {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.btn-login:hover {
+    background-color: #0056b3; /* Bleu plus foncé au survol */
+}
+
+/* Bouton de déconnexion (Dashboard) */
+.btn-logout {
+    background-color: var(--secondary-color);
+    color: white;
+}
+
+.btn-logout:hover {
+    background-color: #5a6268;
+}
+
+/* S'assurer que le header s'affiche bien */
+header {
+    width: 100%;
+    position: fixed; /* Reste en haut */
+    top: 0;
+    left: 0;
+    background-color: #1a1a1a;
+    padding: 10px 0;
+    text-align: center;
+    border-bottom: 1px solid #000;
+    z-index: 10;
+}
+.error-message {
+    /* Couleur de fond rouge foncé pour attirer l'attention sans être agressif */
+    background-color: #492828; 
+    /* Couleur du texte rouge pour l'alerte */
+    color: #ff4500; 
+    
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #ff4500;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    text-align: center;
+    /* Optionnel : ajoute une petite ombre interne pour un effet "pop-out" */
+    box-shadow: inset 0 0 5px rgba(255, 69, 0, 0.3); 
+}
