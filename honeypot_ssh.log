@@ -1,0 +1,5 @@
+{"timestamp": "2025-11-07T08:35:47-0500", "honeypot_type": "ssh", "event_type": "connection_established", "source_ip": "127.0.0.1", "username": null, "password": null, "message": "Nouvelle connexion SSH entrante"}
+{"timestamp": "2025-11-07T08:36:30-0500", "honeypot_type": "ssh", "event_type": "login_attempt", "source_ip": "127.0.0.1", "username": "admin", "password": "\u001b[D\u001b[D\u001b[B\u001b[H", "message": "Tentative d'authentification par mot de passe captur\u00e9e."}
+{"timestamp": "2025-11-07T08:37:06-0500", "honeypot_type": "ssh", "event_type": "login_attempt", "source_ip": "127.0.0.1", "username": "admin", "password": "sdfsdf", "message": "Tentative d'authentification par mot de passe captur\u00e9e."}
+{"timestamp": "2025-11-07T08:37:26-0500", "honeypot_type": "ssh", "event_type": "login_attempt", "source_ip": "127.0.0.1", "username": "admin", "password": "4427", "message": "Tentative d'authentification par mot de passe captur\u00e9e."}
+{"timestamp": "2025-11-07T08:46:25-0500", "honeypot_type": "ssh", "event_type": "connection_closed", "source_ip": "127.0.0.1", "username": null, "password": null, "message": "Connexion SSH ferm\u00e9e"}

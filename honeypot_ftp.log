@@ -1,0 +1,5 @@
+{"timestamp": "2025-11-07T13:54:06-0500", "honeypot_type": "ftp", "event_type": "connection_established", "source_ip": "127.0.0.1", "command": null, "username": null, "password": null, "message": "Nouvelle connexion FTP entrante"}
+{"timestamp": "2025-11-07T13:54:13-0500", "honeypot_type": "ftp", "event_type": "command_received", "source_ip": "127.0.0.1", "command": "USER", "username": null, "password": null, "message": "Commande re\u00e7ue: USER badr"}
+{"timestamp": "2025-11-07T13:54:17-0500", "honeypot_type": "ftp", "event_type": "command_received", "source_ip": "127.0.0.1", "command": "PASS", "username": null, "password": null, "message": "Commande re\u00e7ue: PASS ''\u00e9\u00e8"}
+{"timestamp": "2025-11-07T13:54:17-0500", "honeypot_type": "ftp", "event_type": "login_attempt", "source_ip": "127.0.0.1", "command": null, "username": "badr", "password": "''\u00e9\u00e8", "message": "Tentative d'identifiants FTP captur\u00e9e."}
+{"timestamp": "2025-11-07T13:54:17-0500", "honeypot_type": "ftp", "event_type": "connection_closed", "source_ip": "127.0.0.1", "command": null, "username": null, "password": null, "message": "Connexion FTP fermee"}
