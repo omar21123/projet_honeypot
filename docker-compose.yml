@@ -1,0 +1,28 @@
+version: '3.7'
+
+services:
+  # Service du honeypot SSH/Telnet avancé (Cowrie)
+  cowrie:
+    # Utilise l'image officielle et sécurisée de Cowrie
+    image: cowrie/cowrie
+    container_name: cowrie
+    # Mappe le port interne 2222 (SSH) au port hôte 2223.
+    # Ainsi, votre SSHv2 est sur 2223.
+    ports:
+      - "2223:2222" # SSH
+      # Si vous voulez aussi le Telnet de Cowrie:
+      # - "2224:2223" # TELNET (Optionnel)
+    
+    # Monte les volumes pour conserver les logs et les fichiers téléchargés
+    volumes:
+      # Les logs JSON de Cowrie seront stockés ici (important pour Logstash!)
+      - cowrie_logs:/cowrie/var/log/cowrie/
+      # Les données de session, binaires téléchargés, etc. seront ici
+      - cowrie_data:/cowrie/var/lib/cowrie/
+    
+    restart: always
+
+# Définition des volumes de stockage
+volumes:
+  cowrie_logs:
+  cowrie_data:
