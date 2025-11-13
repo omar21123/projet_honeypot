@@ -6,7 +6,7 @@ import socket
 import sys
 
 # Fichier où les logs JSON seront écrits
-SSH_LOG_FILE = "honeypot_ssh.log"
+SSH_LOG_FILE = "logs/honeypot_ssh.log"
 HOST_KEY_PATH = "host_rsa.key" # Clé générée par ssh-keygen
 
 # --- Fonctions de Logging Honeypot (JSON) ---

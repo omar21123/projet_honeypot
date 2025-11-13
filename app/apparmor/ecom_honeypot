@@ -1,0 +1,27 @@
+# /etc/apparmor.d/ecom_honeypot
+#include <tunables/global>
+
+profile ecom_honeypot /home/kali/Desktop/honeypot/apps/venv/bin/python3 {
+  #include <abstractions/base>
+  #include <abstractions/python>
+
+  # Fichiers autorisés
+  /home/kali/Desktop/honeypot/apps/** rwk,
+  /home/kali/Desktop/honeypot/apps/database.db rw,
+  /home/kali/Desktop/honeypot/apps/uploads/** rw,
+  /home/kali/Desktop/honeypot/apps/ecom_honeypot.log w,
+
+  # Python & Flask
+  /usr/lib/python3.** r,
+  /usr/local/lib/python3.** r,
+
+  # Réseau
+  network inet stream,
+  network inet dgram,
+
+  # Bloquer tout le reste
+  deny capability sys_ptrace,
+  deny /bin/** x,
+  deny /usr/bin/** x,
+  deny /etc/** r,
+}
