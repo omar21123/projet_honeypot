@@ -1,28 +1,37 @@
 version: '3.7'
 
 services:
-  # Service du honeypot SSH/Telnet avancé (Cowrie)
+  # Service du honeypot SSH/Telnet (Cowrie)
   cowrie:
-    # Utilise l'image officielle et sécurisée de Cowrie
     image: cowrie/cowrie
     container_name: cowrie
-    # Mappe le port interne 2222 (SSH) au port hôte 2223.
-    # Ainsi, votre SSHv2 est sur 2223.
     ports:
       - "2223:2222" # SSH
-      # Si vous voulez aussi le Telnet de Cowrie:
-      # - "2224:2223" # TELNET (Optionnel)
-    
-    # Monte les volumes pour conserver les logs et les fichiers téléchargés
     volumes:
-      # Les logs JSON de Cowrie seront stockés ici (important pour Logstash!)
       - cowrie_logs:/cowrie/var/log/cowrie/
-      # Les données de session, binaires téléchargés, etc. seront ici
       - cowrie_data:/cowrie/var/lib/cowrie/
-    
     restart: always
+
+  # NOUVEAU SERVICE: Honeypot E-commerce (Flask)
+  ecom_honeypot:
+    # 'build: ./app' dit à Docker de chercher un Dockerfile dans le dossier 'app'
+    build: ./app
+    container_name: ecom_honeypot
+    ports:
+      # Mappe le port 80 (HTTP standard) au port 5000 de votre app Flask
+      - "80:5000"
+    volumes:
+      # Monte un volume pour les données persistantes (DB, logs, uploads)
+      # à l'intérieur du conteneur
+      - ecom_data:/app/data
+    restart: always
+    # Nécessaire pour permettre à votre app.py d'appliquer son propre filtre seccomp
+    security_opt:
+      - seccomp:unconfined
 
 # Définition des volumes de stockage
 volumes:
   cowrie_logs:
   cowrie_data:
+  # NOUVEAU VOLUME: pour les données de l'e-commerce
+  ecom_data:
