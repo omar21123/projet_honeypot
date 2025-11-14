@@ -1,37 +1,48 @@
-version: '3.7'
+version: '3.8'
 
 services:
-  # Service du honeypot SSH/Telnet (Cowrie)
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.15.0
+    container_name: elasticsearch
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+      - ES_JAVA_OPTS=-Xms1g -Xmx1g
+    ports:
+      - "9200:9200"
+    volumes:
+      - esdata:/usr/share/elasticsearch/data
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:8.15.0
+    container_name: kibana
+    environment:
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+    ports:
+      - "5601:5601"
+    depends_on:
+      - elasticsearch
+
+  logstash:
+    image: docker.elastic.co/logstash/logstash:8.15.0
+    container_name: logstash
+    volumes:
+      - ./logstash.conf:/usr/share/logstash/pipeline/logstash.conf:ro
+      - ./logs:/logs
+      - cowrie_logs:/cowrie/var/log/cowrie
+    depends_on:
+      - elasticsearch
+
   cowrie:
     image: cowrie/cowrie
     container_name: cowrie
     ports:
-      - "2223:2222" # SSH
+      - "2223:2222"      # Cowrie SSH exposed on 2223
     volumes:
-      - cowrie_logs:/cowrie/var/log/cowrie/
-      - cowrie_data:/cowrie/var/lib/cowrie/
-    restart: always
+      - cowrie_logs:/cowrie/var/log/cowrie
+      - cowrie_data:/cowrie/var/lib/cowrie
 
-  # NOUVEAU SERVICE: Honeypot E-commerce (Flask)
-  ecom_honeypot:
-    # 'build: ./app' dit à Docker de chercher un Dockerfile dans le dossier 'app'
-    build: ./app
-    container_name: ecom_honeypot
-    ports:
-      # Mappe le port 80 (HTTP standard) au port 5000 de votre app Flask
-      - "80:5000"
-    volumes:
-      # Monte un volume pour les données persistantes (DB, logs, uploads)
-      # à l'intérieur du conteneur
-      - ecom_data:/app/data
-    restart: always
-    # Nécessaire pour permettre à votre app.py d'appliquer son propre filtre seccomp
-    security_opt:
-      - seccomp:unconfined
-
-# Définition des volumes de stockage
 volumes:
+  esdata:
   cowrie_logs:
   cowrie_data:
-  # NOUVEAU VOLUME: pour les données de l'e-commerce
-  ecom_data:

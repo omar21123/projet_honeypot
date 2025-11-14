@@ -1,11 +1,17 @@
+import os
 import socket
 import threading
 import json
 import time
 import uuid
 
+# --- Répertoire des logs commun (../logs) ---
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))          # .../projet_honeypot_final/app
+LOG_DIR = os.path.join(os.path.dirname(BASE_DIR), "logs")      # .../projet_honeypot_final/logs
+os.makedirs(LOG_DIR, exist_ok=True)
+
 # Fichier où les logs JSON seront écrits
-FTP_LOG_FILE = "honeypot_ftp.log"
+FTP_LOG_FILE = os.path.join(LOG_DIR, "honeypot_ftp.log")
 HOST = '0.0.0.0'
 PORT = 2121  # Port non standard 2121 (FTP standard = 21)
 
@@ -162,7 +168,6 @@ def handle_ftp_connection(conn, addr):
 
                 # LIST (simulé sur le canal de contrôle, pas de data channel)
                 elif command == "LIST":
-                    # On simule un listing mais on ne crée pas de data socket
                     conn.sendall(b"150 Opening ASCII mode data connection for file list.\r\n")
 
                     entries = fake_fs.get(current_dir, [])
